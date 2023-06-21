@@ -1,0 +1,43 @@
+import pandas as pd
+import numpy as np
+
+def mincost(l):
+    mini=0
+    for x in l:
+        if cost[x]<mini:
+            mini=cost[x]
+            g=x
+    return g
+
+
+def GBFS(s,t):
+    print(s,t)
+    closed=[s]
+    while t not in closed:
+        l2=[]
+        for x in g[closed[-1]]:
+            l2.append(x)
+        nn=mincost(l2)
+        closed.append(nn)
+    print(closed)
+
+g={'p': ['a', 'c', 'r'], 'a': ['m'], 'c': ['m', 'r', 'u'], 'r': ['e'], 'm': ['l', 'u'], 'u': ['s', 'n'], 'e': ['u', 's'], 'l': ['n'], 'n': ['s'], 's': []}
+cost={'p': 10, 'a': 11, 'c': 6, 'r': 8, 'm': 9, 'u': 4, 'e': 3, 'l': 9, 'n': 6, 's': 0}
+# g={}
+# cost={}
+# n=int(input("enter no.of nodes : "))
+# for i in range(n):
+#     node=input("enter node : ")
+#     c=int(input("Enter cost of the node : "))
+#     cost[node]=c
+#     l=[]
+#     n1=int(input("enter no.of childs from the above node :"))
+#     for j in range(n1):
+#         x =input("Enter each child node : ")
+#         l.append(x)
+#     g[node]=l
+# print(g)
+# print(cost)
+src=input("source : ")
+tar=input("target : ")
+GBFS(src,tar)
