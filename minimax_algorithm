@@ -1,0 +1,19 @@
+def minimax(maximizer,src,l,r):
+  if l==r:
+    return src[l]
+  m=(l+r)//2
+  if(maximizer):
+    #for maximizer turn- we find the max value
+    return max(minimax(False,src,l,m),minimax(False,src,m+1,r))
+  #for minimizer turn we find the minimum value
+  return min(minimax(True,src,l,m),minimax(True,src,m+1,r))
+
+n=int(input("enter no.of final states : "))
+src=[int(x) for x in input("enter values : ").split()]
+#print(src)
+print(minimax(True,src,0,n-1))
+
+output:
+enter no.of final states : 4
+enter values : 1 2 3 4
+3
