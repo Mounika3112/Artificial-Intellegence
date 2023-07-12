@@ -1,0 +1,40 @@
+def vaccum_bfs():
+  while(len(queue)):
+    x=queue.pop(0)
+    print(x)
+    if x in target:
+      print("Target reached")
+      print(x)
+      return
+    left=x[0]
+    right=x[1]
+    if left[0]:
+      if left[1]:
+        v=[[1,0],right]
+        if v not in queue and v not in visited:
+          queue.append(v)
+      v=[[0,left[1]],[1,right[1]]]
+      if v not in queue and v not in visited:
+          queue.append(v)
+    if right[0]:
+      if right[1]:
+        v=[left,[1,0]]
+        if v not in queue and v not in visited:
+          queue.append(v)
+        v=[[1,left[1]],[0,right[1]]]
+        if v not in queue and v not in visited:
+          queue.append(v)
+queue=[[[1,1],[0,1]]]
+target=[[[1,0],[0,0]],[[0,0],[1,0]]]
+visited=[]
+vaccum_bfs()
+
+[[1, 1], [0, 1]]
+[[1, 0], [0, 1]]
+[[0, 1], [1, 1]]
+[[0, 0], [1, 1]]
+[[0, 1], [1, 0]]
+[[1, 1], [0, 1]]
+[[0, 0], [1, 0]]
+Target reached
+[[0, 0], [1, 0]]
