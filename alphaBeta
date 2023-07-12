@@ -1,0 +1,24 @@
+import math
+def AlphaBeta(index,currentDepth,finalDepth,maximizer,src,alpha,beta):
+  if currentDepth==finalDepth:
+    return src[index]
+  else:
+    if maximizer:
+      for i in range(0,2):
+        val=AlphaBeta(2*index+i,currentDepth+1,finalDepth,False,src,alpha,beta)
+        alpha=max(alpha,val)
+        if alpha>=beta:
+          break
+      return alpha
+    else:
+      for i in range(0,2):
+        val=AlphaBeta(2*index+i,currentDepth+1,finalDepth,True,src,alpha,beta)
+        beta=min(beta,val)
+        if alpha>=beta:
+          break
+      return beta
+
+n=int(input("enter no.of final states: "))
+h=math.log(n,2)
+src=[int(x) for x in input().split()]
+AlphaBeta(0,0,h,True,src,-1000,1000)
