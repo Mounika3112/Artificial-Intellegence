@@ -1,0 +1,31 @@
+def is_valid(state):
+  if (state[0]>3 or state[1]>3 or state[2]>1 or state[0]<0 or state[1]<0 or state[2]<0 or(0<state[0]<state[1]) or (0<(3-state[0])<(3-state[1]))):
+    return False
+  else:
+    return True
+def generate_next_states(M,C,B):
+  moves=[[1,0,1],[0,1,1],[0,2,1],[2,0,1],[1,1,1]]
+  valid_states=[]
+  for each in moves:
+    if B==1:
+      next_state=[x1-x2 for (x1,x2) in zip([M,C,B],each)]
+    else:
+      next_state=[x1+x2 for (x1,x2) in zip([M,C,B],each)]
+    if(is_valid(next_state)):
+      valid_states.append(next_state)
+  return valid_states
+
+def find_sol(M,C,B,visited):
+  if([M,C,B]==[0,0,0]):
+    print("Solution reached, steps: ",visited+[[0,0,0]])
+  elif([M,C,B] in visited):
+    return False
+  else:
+    visited.append([M,C,B])
+    if(B==1):
+      for x in generate_next_states(M,C,B):
+        find_sol(x[0],x[1],x[2],visited[:])
+    else:
+      for x in generate_next_states(M,C,B):
+        find_sol(x[0],x[1],x[2],visited[:])
+find_sol(3,3,1,[])
