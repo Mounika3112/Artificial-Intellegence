@@ -1,0 +1,40 @@
+ini=int(input("enter initial state:"))
+goal=int(input("enter goal state:"))
+dep=int(input("enter depth:"))
+gra={1:[2,5],2:[3,4],3:[8,9],5:[6,7],7:[10,11]}
+def DLS(src,goal,g,dep):
+  vis=[]
+  q=[]
+  q.append(src)
+  check=[0]
+  while len(q):
+    f=q.pop()
+    print(f,end=" ")
+    p=check.pop()
+    if f not in vis:
+      if f==goal:
+        print("Target found")
+        return 1
+      vis.append(f)
+    if p+1>dep:
+      break
+    for j in g[f]:
+      if j not in vis:
+        q.append(j)
+        check.append(p+1)
+  return 0
+def IDDFS(src,goal,g,dep):
+  for i in range(dep+1):
+    print("\ndepth:",i)
+    if DLS(src,goal,g,i):
+      break
+IDDFS(ini,goal,gra,dep)
+
+.........................................................................
+enter initial state:1
+enter goal state:5
+enter depth:3
+depth: 0
+1 
+depth: 1
+1 5 Target found
