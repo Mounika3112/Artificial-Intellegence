@@ -1,0 +1,23 @@
+Conditions={
+    'A':{'OR':['B'],'AND':['C','D']},
+    'B':{'OR':['E','F']},
+    'C':{'OR':['G'],'AND':['H','I']},
+    'D':{'OR':['J']},'E':7,'F': 9, 'G': 3, 'H': 9, 'I':7, 'J':6
+}
+
+def ao(Conditions,c,k,currdepth):
+  if currdepth==2:
+    return Conditions[k]
+  for i in Conditions[k]:
+    if i=='OR':
+      for j in Conditions[k][i]:
+        # print(j)
+        c=min(ao(Conditions,c,j,currdepth+1),c)
+    elif i=='AND':
+      p=0
+      for j in Conditions[k][i]:
+        # print(j)
+        p=p+ao(Conditions,c,j,currdepth+1)
+      c=min(p,c)
+  return c
+print(ao(Conditions,1000,'A',0))
