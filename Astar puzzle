@@ -1,0 +1,104 @@
+def hueristic(start,goal):
+    h=0
+    for i in range(len(start)):
+        for j in range(len(start[i])):
+            if(start[i][j]!=goal[i][j]):
+                h+=1
+    return h
+
+
+def left(s):
+    c=0
+    for i in range(len(s)):
+        for j in range(len(s[i])):
+            if(s[i][j]==0 and j!=0):
+              try:
+                s[i][j]=s[i][j-1]
+                s[i][j-1]=0
+                c=1
+                break
+              except IndexError:
+                    continue
+        if c==1:
+            break
+    return s
+def right(s):
+    c=0
+    for i in range(len(s)):
+        for j in range(len(s[i])):
+            if(s[i][j]==0 and j!=len(s[1])-1):
+                try:
+                    s[i][j]=s[i][j+1]
+                    s[i][j+1]=0
+                    c=1
+                    break
+                except IndexError:
+                    continue
+        if c==1:
+            break
+    return s
+def up(s):
+    c=0
+    for i in range(len(s)):
+        for j in range(len(s[i])):
+            if(s[i][j]==0):
+              try:
+                s[i][j]=s[i-1][j]
+                s[i-1][j]=0
+                c=1
+                break
+              except IndexError:
+                    continue
+        if c==1:
+            break
+    return s
+def down(s):
+    c=0
+    for i in range(len(s)):
+        for j in range(len(s[i])):
+            if(s[i][j]==0):
+              try:
+                s[i][j]=s[i+1][j]
+                s[i+1][j]=0
+                c=1
+                break
+              except IndexError:
+                    continue
+        if c==1:
+            break
+    return s
+def astarpuzz(start,goal):
+  while(np.allclose(start,goal)==False):
+    hl=hueristic(left(copy.deepcopy(start)),goal)
+    hr=hueristic(right(copy.deepcopy(start)),goal)
+    hu=hueristic(up(copy.deepcopy(start)),goal)
+    hd=hueristic(down(copy.deepcopy(start)),goal)
+    #min=hl>hd?(hl>hu?(hl>hd?hl:hd):(hu>hd?hu:hd)):(hd>hu?)
+    mini=min(hl,hr,hu,hd)
+    print(mini)
+    if mini==hl:
+      start=left(start)
+      print('left')
+    elif mini==hd:
+      start=down(start)
+      print('d')
+    elif mini==hr:
+      start=right(start)
+      print('r')
+    else:
+      start=up(start)
+      print('u')
+    print(start)
+
+
+
+import numpy as np
+import copy
+start=np.array([[1,2,3],[0,4,6],[7,5,8]])
+goal=np.array([[1,2,3],[4,5,6],[7,8,0]])
+
+
+
+
+astarpuzz(start,goal)
+
