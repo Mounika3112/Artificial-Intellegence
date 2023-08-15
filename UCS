@@ -1,0 +1,25 @@
+gr={'a':[[3,'b'],[2,'c']],'b':[[6,'d'],[1,'e'],[3,'a']],'c':[[5,'f'],[2,'a']],'f':[[2,'g'],[5,'c']],'e':[[1,'b'],[2,'g']],'g':[[2,'f'],[2,'e']],'d':[[6,'b']]}
+ini=input("Enter initial state:")
+goal=input("enter goal state:")
+def UCS(src,goal,g):
+  v=[]
+  q=[]
+  cost=[]
+  fc=float('inf')
+  q.append(src)
+  cost.append(0)
+  while len(q):
+    p=q.pop()
+    c=cost.pop()
+    if p not in v:
+      if p==goal:
+        v.append(p)
+        if(c<fc):
+          fc=c
+        break
+      v.append(p)
+      for i in g[p]:
+        q.append(i[1])
+        cost.append(c+i[0])
+  return fc
+print(UCS(ini,goal,gr))
